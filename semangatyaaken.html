@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pesan untuk Aken</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&family=Patrick+Hand&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-cream: #F7F6F2;
+            --matcha-soft: #9CAF9C;
+            --matcha-dark: #7A8F7A;
+            --army-green: #4A5D23;
+            --text-dark: #2F3E33;
+            --white: #FFFFFF;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: #e0e5df;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        .phone-frame {
+            width: 100%;
+            max-width: 380px;
+            height: 100vh;
+            max-height: 800px;
+            background-color: var(--bg-cream);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 0 30px rgba(74, 93, 35, 0.2);
+            display: flex;
+            flex-direction: column;
+        }
+
+        @media (min-width: 400px) {
+            .phone-frame {
+                border-radius: 30px;
+                height: 90vh;
+                border: 8px solid var(--white);
+            }
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s ease;
+            z-index: 1;
+        }
+
+        .slide.active {
+            opacity: 1;
+            visibility: visible;
+            z-index: 2;
+        }
+
+        h2 {
+            font-family: 'Patrick Hand', cursive;
+            color: var(--army-green);
+            margin-bottom: 15px;
+            font-size: 1.8rem;
+        }
+
+        p {
+            color: var(--text-dark);
+            font-size: 1.1rem;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        .img-container {
+            position: relative;
+            width: 180px;
+            height: 180px;
+            margin-bottom: 20px;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        .main-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 4px solid var(--white);
+            box-shadow: 0 8px 20px rgba(74, 93, 35, 0.15);
+        }
+
+        .sticker {
+            position: absolute;
+            font-size: 2rem;
+        }
+        .s1 { top: -10px; right: -10px; }
+        .s2 { bottom: 10px; left: -20px; }
+        
+        .btn {
+            background-color: var(--army-green);
+            color: var(--white);
+            border: none;
+            padding: 12px 30px;
+            font-size: 1.1rem;
+            font-family: 'Patrick Hand', cursive;
+            border-radius: 50px;
+            cursor: pointer;
+            margin: 8px;
+            transition: transform 0.2s;
+            width: 80%;
+        }
+
+        .btn:hover { transform: scale(1.05); }
+
+        .btn-option {
+            background-color: var(--matcha-soft);
+            color: var(--text-dark);
+        }
+
+        .animate-pulse { animation: heartbeat 1.5s infinite; }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .feedback-box {
+            background: var(--white);
+            padding: 15px;
+            border-radius: 15px;
+            margin-top: 15px;
+            border: 2px dashed var(--matcha-soft);
+            display: none;
+        }
+
+        .music-control {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(255, 255, 255, 0.8);
+            border: none;
+            border-radius: 20px;
+            padding: 5px 12px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            z-index: 10;
+            color: var(--army-green);
+        }
+
+        /* Iframe tersembunyi untuk musik */
+        #youtube-audio {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="phone-frame">
+        <iframe id="spotify" src="https://open.spotify.com/track/1xJ4iZKalZFH5UHT4deGtO?si=b071b152683e4436" allow="autoplay"></iframe>
+        
+        <button class="music-control" id="musicBtn" onclick="playMusic()">🎵 Musik Off</button>
+
+        <div class="slide active" id="slide-1">
+            <div class="img-container">
+                <img src="https://i.pinimg.com/1200x/0b/88/14/0b8814030e7b1e9210b6729daf767106.jpg" alt="Cartoon" class="main-img">
+                <div class="sticker s1">✨</div>
+            </div>
+            <h2>Halo Aken!</h2>
+            <p>Ada pesan kecil nih dari Selv buat kamu hihi...</p>
+            <button class="btn animate-pulse" onclick="nextSlide(1)">Buka Pesan</button>
+        </div>
+
+        <div class="slide" id="slide-2">
+            <div class="img-container">
+                <img src="https://i.pinimg.com/736x/e9/b2/da/e9b2da9ac66fe215864c9ee4531c4ca3.jpg" alt="Cartoon" class="main-img">
+                <div class="sticker s2">🌿</div>
+            </div>
+            <h2>Gimana kabarnya hari ini?</h2>
+            <div class="options">
+                <button class="btn btn-option" onclick="showFeedback('baik')">Alhamdulillah baik selv</button>
+                <button class="btn btn-option" onclick="showFeedback('bad')">Hmm gatau deh selv</button>
+            </div>
+            <div id="feedback-msg" class="feedback-box">
+                <p id="feedback-text" style="font-weight:bold;"></p>
+                <button class="btn" style="width: auto; padding: 5px 15px;" onclick="nextSlide(2)">Lanjut ➜</button>
+            </div>
+        </div>
+
+        <div class="slide" id="slide-3">
+            <div class="img-container">
+                <img src="https://i.pinimg.com/736x/55/7a/33/557a333833f066d7f29b0ae88f2ae46d.jpg" alt="Cartoon" class="main-img">
+                <div class="sticker s1">🌙</div>
+            </div>
+            <h2>Semangat Puasa & Kerja!</h2>
+            <p>Aken, semangat ya puasanya! Meskipun sambil kerja, aku tahu kamu hebat. Jangan lupa jaga kesehatan dan jangan lupa senyum ya hihi. Barokah selalu kegiatannya!</p>
+            <button class="btn" onclick="nextSlide(3)">Lanjut</button>
+        </div>
+
+        <div class="slide" id="slide-4">
+            <div class="img-container">
+                <img src="https://i.pinimg.com/1200x/32/a1/3c/32a13c83ca83df0d5dac2f496c31ce70.jpg" alt="Cartoon" class="main-img">
+                <div class="sticker s2">💖</div>
+            </div>
+            <h2>Terima Kasih Aken!</h2>
+            <p>Selv cuma mau bilang itu aja si hihi, makasii ya udah dengerin pesan singkat ini. Semoga hari-hari kamu menyenangkan ya!</p>
+            <p style="font-family: 'Patrick Hand'; font-size: 1.5rem;">Dari Selv ✨</p>
+            <button class="btn" onclick="resetApp()">Ulangi</button>
+        </div>
+    </div>
+
+    <script>
+        function nextSlide(n) {
+            document.getElementById(`slide-${n}`).classList.remove('active');
+            document.getElementById(`slide-${n+1}`).classList.add('active');
+        }
+
+        function showFeedback(type) {
+            const box = document.getElementById('feedback-msg');
+            const text = document.getElementById('feedback-text');
+            if(type === 'baik') {
+                text.innerText = "Syukurlah! Semoga aken happy and smile terus ya hari ini hihi✨";
+            } else {
+                text.innerText = "Gak apa-apa kok kalau lagi capek. Istirahat sebentar ya aken, aken udah berusaha hebat hari ini! 🫂";
+            }
+            box.style.display = 'block';
+        }
+
+        function resetApp() {
+            location.reload();
+        }
+
+        // Fungsi musik sederhana menggunakan postMessage ke Iframe Spotify
+        let isPlaying = false;
+        function playMusic() {
+            const iframe = document.getElementById('spotify');
+            const btn = document.getElementById('musicBtn');
+            if (!isPlaying) {
+                iframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+                btn.innerText = "🎵 Musik On";
+                isPlaying = true;
+            } else {
+                iframe.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
+                btn.innerText = "🎵 Musik Off";
+                isPlaying = false;
+            }
+        }
+    </script>
+</body>
+</html>
